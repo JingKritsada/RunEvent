@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const generateToken = (id) => {
-	return jwt.sign({ id }, process.env.JWT_SECRET || 'secret', {
+	return jwt.sign({ id }, process.env.JWT_SECRET, {
 		expiresIn: '30d',
 	});
 };
@@ -23,10 +23,16 @@ const registerUser = async (req, res) => {
 		username,
 	} = req.body;
 
-	const userExists = await User.findOne({ $or: [{ email }, { username }] });
+	// Verify email format
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	if (!email || !emailRegex.test(email)) {
+		return res.status(400).json({ message: 'Invalid email address' });
+	}
 
+	// Check if email already registered
+	const userExists = await User.findOne({ email });
 	if (userExists) {
-		return res.status(400).json({ message: 'User already exists' });
+		return res.status(400).json({ message: 'Email already registered' });
 	}
 
 	const salt = await bcrypt.genSalt(10);
