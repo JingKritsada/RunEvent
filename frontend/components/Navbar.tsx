@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, User as UserIcon, LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar: React.FC = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +43,7 @@ const Navbar: React.FC = () => {
 	};
 
 	return (
-		<nav className="bg-white shadow-md sticky top-0 z-40">
+		<nav className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-40 transition-colors duration-200">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex justify-between h-16">
 					{/* Logo Section */}
@@ -64,7 +65,7 @@ const Navbar: React.FC = () => {
 									/>
 								</svg>
 							</div>
-							<span className="font-bold text-xl text-brand-800">
+							<span className="font-bold text-xl text-brand-800 dark:text-brand-400">
 								CoopRun
 							</span>
 						</Link>
@@ -83,8 +84,8 @@ const Navbar: React.FC = () => {
 										(location.pathname === '/register' ||
 											location.pathname ===
 												'/run-status'))
-										? 'text-brand-600 border-b-2 border-brand-600'
-										: 'text-gray-500 hover:text-brand-600'
+										? 'text-brand-600 dark:text-brand-400 border-b-2 border-brand-600 dark:border-brand-400'
+										: 'text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400'
 								} px-1 py-2 text-sm font-medium transition-colors cursor-pointer`}
 							>
 								{item.name}
@@ -93,30 +94,31 @@ const Navbar: React.FC = () => {
 					</div>
 
 					{/* Profile Section */}
-					<div className="hidden md:flex items-center">
+					<div className="hidden md:flex items-center gap-4">
+						<ThemeToggle />
 						{user ? (
 							<Link
 								to="/profile"
-								className="flex items-center gap-2 text-gray-700 hover:text-brand-600 transition-colors"
+								className="flex items-center gap-2 text-gray-700 dark:text-gray-200 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
 							>
 								<span className="text-sm font-medium">
 									{user.name}
 								</span>
-								<div className="h-8 w-8 rounded-full bg-brand-100 flex items-center justify-center border border-brand-200 overflow-hidden">
+								<div className="h-8 w-8 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center border border-brand-200 dark:border-brand-800 overflow-hidden">
 									{user.profileImage ? (
 										<img
 											src={user.profileImage}
 											alt="Profile"
 										/>
 									) : (
-										<UserIcon className="h-5 w-5 text-brand-600" />
+										<UserIcon className="h-5 w-5 text-brand-600 dark:text-brand-400" />
 									)}
 								</div>
 							</Link>
 						) : (
 							<button
 								onClick={openLoginModal}
-								className="flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-colors text-sm font-medium"
+								className="flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900/50 transition-colors text-sm font-medium"
 							>
 								<LogIn className="w-4 h-4" />
 								เข้าสู่ระบบ
@@ -125,10 +127,11 @@ const Navbar: React.FC = () => {
 					</div>
 
 					{/* Mobile menu button */}
-					<div className="flex items-center md:hidden">
+					<div className="flex items-center md:hidden gap-2">
+						<ThemeToggle />
 						<button
 							onClick={toggleMenu}
-							className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-500"
+							className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-500"
 						>
 							{isOpen ? (
 								<X className="block h-6 w-6" />
@@ -142,7 +145,7 @@ const Navbar: React.FC = () => {
 
 			{/* Mobile Menu */}
 			{isOpen && (
-				<div className="md:hidden bg-white border-t border-gray-100">
+				<div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
 					<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
 						{navItems.map((item) => (
 							<a
@@ -155,15 +158,15 @@ const Navbar: React.FC = () => {
 										(location.pathname === '/register' ||
 											location.pathname ===
 												'/run-status'))
-										? 'bg-brand-50 text-brand-700'
-										: 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+										? 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300'
+										: 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
 								} block px-3 py-2 rounded-md text-base font-medium cursor-pointer`}
 							>
 								{item.name}
 							</a>
 						))}
 					</div>
-					<div className="pt-4 pb-4 border-t border-gray-200">
+					<div className="pt-4 pb-4 border-t border-gray-200 dark:border-gray-800">
 						<div className="px-5">
 							{user ? (
 								<Link
@@ -172,7 +175,7 @@ const Navbar: React.FC = () => {
 									className="flex items-center gap-3"
 								>
 									<div className="flex-shrink-0">
-										<div className="h-10 w-10 rounded-full bg-brand-100 flex items-center justify-center border border-brand-200">
+										<div className="h-10 w-10 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center border border-brand-200 dark:border-brand-800">
 											{user.profileImage ? (
 												<img
 													src={user.profileImage}
@@ -180,15 +183,15 @@ const Navbar: React.FC = () => {
 													className="rounded-full"
 												/>
 											) : (
-												<UserIcon className="h-6 w-6 text-brand-600" />
+												<UserIcon className="h-6 w-6 text-brand-600 dark:text-brand-400" />
 											)}
 										</div>
 									</div>
 									<div className="ml-3">
-										<div className="text-base font-medium leading-none text-gray-800">
+										<div className="text-base font-medium leading-none text-gray-800 dark:text-gray-200">
 											{user.name}
 										</div>
-										<div className="text-sm font-medium leading-none text-gray-500 mt-1">
+										<div className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400 mt-1">
 											{user.email}
 										</div>
 									</div>
@@ -199,7 +202,7 @@ const Navbar: React.FC = () => {
 										openLoginModal();
 										setIsOpen(false);
 									}}
-									className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-brand-600 hover:bg-brand-700"
+									className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-brand-600 hover:bg-brand-700 dark:bg-brand-600 dark:hover:bg-brand-700"
 								>
 									<LogIn className="w-5 h-5" />
 									เข้าสู่ระบบ

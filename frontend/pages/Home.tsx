@@ -114,8 +114,8 @@ const Home: React.FC = () => {
 	const renderContent = () => {
 		if (loading) {
 			return (
-				<div className="flex flex-col items-center justify-center h-64 text-brand-600 animate-pulse">
-					<div className="w-10 h-10 border-4 border-brand-200 border-t-brand-600 rounded-full animate-spin mb-4"></div>
+				<div className="flex flex-col items-center justify-center h-64 text-brand-600 dark:text-brand-400 animate-pulse">
+					<div className="w-10 h-10 border-4 border-brand-200 dark:border-brand-800 border-t-brand-600 dark:border-t-brand-400 rounded-full animate-spin mb-4"></div>
 					Loading data...
 				</div>
 			);
@@ -123,7 +123,7 @@ const Home: React.FC = () => {
 
 		if (!data)
 			return (
-				<div className="text-center text-red-500">
+				<div className="text-center text-red-500 dark:text-red-400">
 					Failed to load data.
 				</div>
 			);
@@ -144,14 +144,16 @@ const Home: React.FC = () => {
 								</h2>
 							</div>
 						</div>
-						<p className="text-lg text-gray-700 leading-relaxed">
+						<p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
 							{data?.description}
 						</p>
-						<div className="bg-green-50 p-6 rounded-xl border border-green-200">
-							<h3 className="font-bold text-green-800 text-xl mb-2 flex items-center gap-2">
+						<div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
+							<h3 className="font-bold text-green-800 dark:text-green-300 text-xl mb-2 flex items-center gap-2">
 								<Calendar className="w-5 h-5" /> วันจัดกิจกรรม
 							</h3>
-							<p className="text-green-700">{data?.date}</p>
+							<p className="text-green-700 dark:text-green-400">
+								{data?.date}
+							</p>
 						</div>
 					</div>
 				);
@@ -163,22 +165,22 @@ const Home: React.FC = () => {
 						{data.map((type: any) => (
 							<div
 								key={type.title}
-								className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100"
+								className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 dark:border-gray-700"
 							>
 								<div
 									className={`${type.color} h-3 w-full`}
 								></div>
 								<div className="p-6 text-center">
-									<h3 className="text-2xl font-bold text-gray-800 mb-2">
+									<h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
 										{type.title}
 									</h3>
-									<div className="text-4xl font-extrabold text-brand-600 mb-4">
+									<div className="text-4xl font-extrabold text-brand-600 dark:text-brand-400 mb-4">
 										{type.dist}
 									</div>
-									<p className="text-gray-500 mb-6">
+									<p className="text-gray-500 dark:text-gray-400 mb-6">
 										ค่าสมัคร {type.price}
 									</p>
-									<ul className="text-sm text-gray-600 space-y-2 mb-6 text-left list-disc pl-6">
+									<ul className="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-6 text-left list-disc pl-6">
 										{type.benefits?.map(
 											(benefit: string, idx: number) => (
 												<li key={idx}>{benefit}</li>
@@ -196,21 +198,21 @@ const Home: React.FC = () => {
 				return (
 					<div className="animate-fade-in text-center">
 						<Award className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-						<h3 className="text-2xl font-bold mb-4">
+						<h3 className="text-2xl font-bold mb-4 dark:text-white">
 							รางวัลการแข่งขัน
 						</h3>
-						<p className="text-gray-600 mb-8">
+						<p className="text-gray-600 dark:text-gray-300 mb-8">
 							{data?.description}
 						</p>
 						<div className="grid md:grid-cols-2 gap-6">
-							<div className="bg-white p-6 rounded-lg shadow border-l-4 border-yellow-400">
-								<h4 className="font-bold text-lg mb-2">
+							<div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-l-4 border-yellow-400 dark:text-gray-300">
+								<h4 className="font-bold text-lg mb-2 dark:text-white">
 									{data?.overall?.title}
 								</h4>
 								<p>{data?.overall?.prize}</p>
 							</div>
-							<div className="bg-white p-6 rounded-lg shadow border-l-4 border-gray-300">
-								<h4 className="font-bold text-lg mb-2">
+							<div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-l-4 border-gray-300 dark:border-gray-600 dark:text-gray-300">
+								<h4 className="font-bold text-lg mb-2 dark:text-white">
 									{data?.ageGroup?.title}
 								</h4>
 								<p>{data?.ageGroup?.prize}</p>
@@ -223,7 +225,7 @@ const Home: React.FC = () => {
 				if (!data?.images || !data?.sizes) return null;
 				return (
 					<div className="animate-fade-in flex flex-col items-center">
-						<h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+						<h3 className="text-2xl font-bold mb-6 flex items-center gap-2 dark:text-white">
 							<Shirt className="w-6 h-6" /> แบบเสื้อและขนาด
 						</h3>
 						<div className="flex flex-wrap justify-center gap-8 mb-8">
@@ -233,7 +235,7 @@ const Home: React.FC = () => {
 									alt="Shirt Design"
 									className="rounded-lg shadow-md w-64 h-64 object-cover mb-2"
 								/>
-								<p className="text-sm font-medium text-gray-500">
+								<p className="text-sm font-medium text-gray-500 dark:text-gray-400">
 									ด้านหน้า
 								</p>
 							</div>
@@ -243,39 +245,39 @@ const Home: React.FC = () => {
 									alt="Shirt Back"
 									className="rounded-lg shadow-md w-64 h-64 object-cover mb-2"
 								/>
-								<p className="text-sm font-medium text-gray-500">
+								<p className="text-sm font-medium text-gray-500 dark:text-gray-400">
 									ด้านหลัง
 								</p>
 							</div>
 						</div>
 
-						<div className="w-full max-w-2xl bg-white rounded-lg shadow overflow-hidden">
-							<table className="min-w-full divide-y divide-gray-200">
-								<thead className="bg-gray-50">
+						<div className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+							<table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+								<thead className="bg-gray-50 dark:bg-gray-700">
 									<tr>
-										<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
 											Size
 										</th>
-										<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
 											รอบอก (นิ้ว)
 										</th>
-										<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
 											ความยาว (นิ้ว)
 										</th>
 									</tr>
 								</thead>
-								<tbody className="bg-white divide-y divide-gray-200">
+								<tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
 									{data.sizes &&
 										Array.isArray(data.sizes) &&
 										data.sizes.map((row: any) => (
 											<tr key={row.size}>
-												<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+												<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
 													{row.size}
 												</td>
-												<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+												<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
 													{row.chest}
 												</td>
-												<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+												<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
 													{row.len}
 												</td>
 											</tr>
@@ -293,7 +295,7 @@ const Home: React.FC = () => {
 
 				return (
 					<div className="animate-fade-in flex flex-col items-center">
-						<h3 className="text-2xl font-bold mb-6 flex items-center justify-center gap-2">
+						<h3 className="text-2xl font-bold mb-6 flex items-center justify-center gap-2 dark:text-white">
 							<Map className="w-6 h-6" /> เส้นทางการวิ่ง
 						</h3>
 
@@ -335,35 +337,35 @@ const Home: React.FC = () => {
 						</div>
 
 						<div className="w-full grid md:grid-cols-2 gap-4 mb-6">
-							<div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex items-start gap-3">
-								<div className="mt-1 bg-green-100 p-2 rounded-full">
-									<MapPin className="w-5 h-5 text-green-600" />
+							<div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 flex items-start gap-3">
+								<div className="mt-1 bg-green-100 dark:bg-green-900/30 p-2 rounded-full">
+									<MapPin className="w-5 h-5 text-green-600 dark:text-green-400" />
 								</div>
 								<div>
-									<div className="text-xs text-gray-500 font-semibold uppercase tracking-wide">
+									<div className="text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide">
 										Start Point
 									</div>
-									<div className="text-lg font-bold text-gray-800">
+									<div className="text-lg font-bold text-gray-800 dark:text-white">
 										{currentRoute.start?.name}
 									</div>
-									<div className="text-sm text-gray-500">
+									<div className="text-sm text-gray-500 dark:text-gray-400">
 										Lat: {currentRoute.start?.lat}, Lng:{' '}
 										{currentRoute.start?.lng}
 									</div>
 								</div>
 							</div>
-							<div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex items-start gap-3">
-								<div className="mt-1 bg-red-100 p-2 rounded-full">
-									<MapPin className="w-5 h-5 text-red-600" />
+							<div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 flex items-start gap-3">
+								<div className="mt-1 bg-red-100 dark:bg-red-900/30 p-2 rounded-full">
+									<MapPin className="w-5 h-5 text-red-600 dark:text-red-400" />
 								</div>
 								<div>
-									<div className="text-xs text-gray-500 font-semibold uppercase tracking-wide">
+									<div className="text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide">
 										Check/Turn Point
 									</div>
-									<div className="text-lg font-bold text-gray-800">
+									<div className="text-lg font-bold text-gray-800 dark:text-white">
 										{currentRoute.end?.name}
 									</div>
-									<div className="text-sm text-gray-500">
+									<div className="text-sm text-gray-500 dark:text-gray-400">
 										Lat: {currentRoute.end?.lat}, Lng:{' '}
 										{currentRoute.end?.lng}
 									</div>
@@ -371,7 +373,7 @@ const Home: React.FC = () => {
 							</div>
 						</div>
 
-						<div className="w-full h-[500px] rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-gray-200 relative group">
+						<div className="w-full h-[500px] rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700 relative group">
 							<iframe
 								width="100%"
 								height="100%"
@@ -404,19 +406,19 @@ const Home: React.FC = () => {
 				if (!Array.isArray(data)) return null;
 				return (
 					<div className="animate-fade-in max-w-2xl mx-auto">
-						<h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+						<h3 className="text-2xl font-bold mb-6 flex items-center gap-2 dark:text-white">
 							<List className="w-6 h-6" /> กำหนดการ
 						</h3>
 						<div className="space-y-4">
 							{data.map((item: any, idx: number) => (
 								<div
 									key={idx}
-									className="flex gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+									className="flex gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
 								>
-									<div className="font-bold text-brand-600 min-w-[80px]">
+									<div className="font-bold text-brand-600 dark:text-brand-400 min-w-[80px]">
 										{item.time}
 									</div>
-									<div className="text-gray-700">
+									<div className="text-gray-700 dark:text-gray-300">
 										{item.event}
 									</div>
 								</div>
@@ -429,10 +431,10 @@ const Home: React.FC = () => {
 				if (!Array.isArray(data)) return null;
 				return (
 					<div className="animate-fade-in max-w-3xl mx-auto space-y-4">
-						<h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+						<h3 className="text-2xl font-bold mb-6 flex items-center gap-2 dark:text-white">
 							<FileText className="w-6 h-6" /> กฎกติกาการแข่งขัน
 						</h3>
-						<ul className="list-decimal pl-6 space-y-3 text-gray-700">
+						<ul className="list-decimal pl-6 space-y-3 text-gray-700 dark:text-gray-300">
 							{data.map((rule: any, idx: number) =>
 								typeof rule === 'string' ? (
 									<li key={idx}>{rule}</li>
@@ -445,23 +447,23 @@ const Home: React.FC = () => {
 				if (!data?.phone) return null;
 				return (
 					<div className="animate-fade-in max-w-2xl mx-auto">
-						<h3 className="text-2xl font-bold mb-6 flex items-center justify-center gap-2">
+						<h3 className="text-2xl font-bold mb-6 flex items-center justify-center gap-2 dark:text-white">
 							<Phone className="w-6 h-6" /> ติดต่อสอบถาม
 						</h3>
-						<div className="bg-white p-8 rounded-xl shadow-lg space-y-6">
+						<div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg space-y-6">
 							{/* Phone */}
 							<a
 								href={`tel:${data?.phone?.split(' ')[0]}`}
-								className="flex items-center gap-4 hover:bg-gray-50 p-2 rounded-lg transition-colors group"
+								className="flex items-center gap-4 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors group"
 							>
-								<div className="bg-brand-100 p-3 rounded-full group-hover:bg-brand-200 transition-colors">
-									<Phone className="w-6 h-6 text-brand-600" />
+								<div className="bg-brand-100 dark:bg-brand-900/30 p-3 rounded-full group-hover:bg-brand-200 dark:group-hover:bg-brand-900/50 transition-colors">
+									<Phone className="w-6 h-6 text-brand-600 dark:text-brand-400" />
 								</div>
 								<div className="text-left">
-									<div className="text-sm text-gray-500">
+									<div className="text-sm text-gray-500 dark:text-gray-400">
 										โทรศัพท์
 									</div>
-									<div className="text-lg font-medium text-gray-800">
+									<div className="text-lg font-medium text-gray-800 dark:text-white">
 										{data?.phone}
 									</div>
 								</div>
@@ -472,16 +474,16 @@ const Home: React.FC = () => {
 								href={`https://www.facebook.com/search/top?q=${data?.facebook}`}
 								target="_blank"
 								rel="noreferrer"
-								className="flex items-center gap-4 hover:bg-gray-50 p-2 rounded-lg transition-colors group"
+								className="flex items-center gap-4 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors group"
 							>
-								<div className="bg-brand-100 p-3 rounded-full group-hover:bg-brand-200 transition-colors">
-									<Facebook className="w-6 h-6 text-brand-600" />
+								<div className="bg-brand-100 dark:bg-brand-900/30 p-3 rounded-full group-hover:bg-brand-200 dark:group-hover:bg-brand-900/50 transition-colors">
+									<Facebook className="w-6 h-6 text-brand-600 dark:text-brand-400" />
 								</div>
 								<div className="text-left">
-									<div className="text-sm text-gray-500">
+									<div className="text-sm text-gray-500 dark:text-gray-400">
 										Facebook Page
 									</div>
-									<div className="text-lg font-medium text-brand-600">
+									<div className="text-lg font-medium text-brand-600 dark:text-brand-400">
 										{data?.facebook}
 									</div>
 								</div>
@@ -493,16 +495,16 @@ const Home: React.FC = () => {
 									href={`https://line.me/ti/p/~${data.line.replace('@', '')}`}
 									target="_blank"
 									rel="noreferrer"
-									className="flex items-center gap-4 hover:bg-gray-50 p-2 rounded-lg transition-colors group"
+									className="flex items-center gap-4 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors group"
 								>
-									<div className="bg-brand-100 p-3 rounded-full group-hover:bg-brand-200 transition-colors">
-										<MessageCircle className="w-6 h-6 text-brand-600" />
+									<div className="bg-brand-100 dark:bg-brand-900/30 p-3 rounded-full group-hover:bg-brand-200 dark:group-hover:bg-brand-900/50 transition-colors">
+										<MessageCircle className="w-6 h-6 text-brand-600 dark:text-brand-400" />
 									</div>
 									<div className="text-left">
-										<div className="text-sm text-gray-500">
+										<div className="text-sm text-gray-500 dark:text-gray-400">
 											Line Official
 										</div>
-										<div className="text-lg font-medium text-brand-600">
+										<div className="text-lg font-medium text-brand-600 dark:text-brand-400">
 											{data.line}
 										</div>
 									</div>
@@ -514,16 +516,16 @@ const Home: React.FC = () => {
 								href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data?.address)}`}
 								target="_blank"
 								rel="noreferrer"
-								className="flex items-center gap-4 hover:bg-gray-50 p-2 rounded-lg transition-colors group"
+								className="flex items-center gap-4 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors group"
 							>
-								<div className="bg-brand-100 p-3 rounded-full group-hover:bg-brand-200 transition-colors">
-									<MapPin className="w-6 h-6 text-brand-600" />
+								<div className="bg-brand-100 dark:bg-brand-900/30 p-3 rounded-full group-hover:bg-brand-200 dark:group-hover:bg-brand-900/50 transition-colors">
+									<MapPin className="w-6 h-6 text-brand-600 dark:text-brand-400" />
 								</div>
 								<div className="text-left">
-									<div className="text-sm text-gray-500">
+									<div className="text-sm text-gray-500 dark:text-gray-400">
 										ที่อยู่
 									</div>
-									<div className="text-lg font-medium text-gray-800">
+									<div className="text-lg font-medium text-gray-800 dark:text-white">
 										{data?.address}
 									</div>
 								</div>
@@ -537,9 +539,9 @@ const Home: React.FC = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-gray-50 pb-20">
+		<div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20 transition-colors duration-200">
 			{/* Header Hero */}
-			<div className="bg-brand-600 text-white py-12 md:py-20 text-center relative overflow-hidden">
+			<div className="bg-brand-600 dark:bg-brand-800 text-white py-12 md:py-20 text-center relative overflow-hidden transition-colors duration-200">
 				<div className="absolute inset-0 bg-pattern opacity-10"></div>
 				<div className="relative z-10 container mx-auto px-4">
 					<h1 className="text-3xl md:text-5xl font-bold mb-4">
@@ -547,7 +549,7 @@ const Home: React.FC = () => {
 							? data.title
 							: 'Phitsanulok Coop Run 2024'}
 					</h1>
-					<p className="text-brand-100 text-lg mb-8 max-w-2xl mx-auto">
+					<p className="text-brand-100 dark:text-brand-200 text-lg mb-8 max-w-2xl mx-auto">
 						วิ่งด้วยใจ ให้ด้วยรัก สานสัมพันธ์สหกรณ์พิษณุโลก
 					</p>
 					<Button
@@ -561,9 +563,9 @@ const Home: React.FC = () => {
 			</div>
 
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
-				<div className="bg-white rounded-xl shadow-xl overflow-hidden min-h-[600px]">
+				<div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden min-h-[600px] transition-colors duration-200">
 					{/* Tabs Navigation */}
-					<div className="border-b border-gray-200 overflow-x-auto">
+					<div className="border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
 						<nav className="flex -mb-px" aria-label="Tabs">
 							{tabs.map((tab) => (
 								<button
@@ -571,8 +573,8 @@ const Home: React.FC = () => {
 									onClick={() => handleTabChange(tab.key)}
 									className={`${
 										activeTab === tab.key
-											? 'border-brand-500 text-brand-600 bg-brand-50'
-											: 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+											? 'border-brand-500 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30'
+											: 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-600'
 									} whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm flex-shrink-0 transition-colors duration-150 ease-in-out`}
 								>
 									{tab.label}
@@ -582,7 +584,7 @@ const Home: React.FC = () => {
 					</div>
 
 					{/* Tab Content */}
-					<div className="p-6 md:p-8 bg-gray-50 min-h-[500px]">
+					<div className="p-6 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-[500px] transition-colors duration-200">
 						{renderContent()}
 					</div>
 				</div>

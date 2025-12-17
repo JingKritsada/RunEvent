@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Layout from './layout/Layout';
 import Home from './pages/Home';
 import Register from './pages/Register';
@@ -12,17 +13,19 @@ import NotFound from './pages/NotFound';
 const App: React.FC = () => {
 	return (
 		<AuthProvider>
-			<Router>
-				<Layout>
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/register" element={<Register />} />
-						<Route path="/run-status" element={<RunStatus />} />
-						<Route path="/profile" element={<Profile />} />
-						<Route path="*" element={<NotFound />} />
-					</Routes>
-				</Layout>
-			</Router>
+			<ThemeProvider>
+				<Router>
+					<Layout>
+						<Routes>
+							<Route path="/" element={<Home />} />
+							<Route path="/register" element={<Register />} />
+							<Route path="/run-status" element={<RunStatus />} />
+							<Route path="/profile" element={<Profile />} />
+							<Route path="*" element={<NotFound />} />
+						</Routes>
+					</Layout>
+				</Router>
+			</ThemeProvider>
 		</AuthProvider>
 	);
 };

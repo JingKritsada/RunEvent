@@ -135,7 +135,7 @@ const LoginModal: React.FC = () => {
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4">
-			<div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up max-h-[90vh] overflow-y-auto">
+			<div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up max-h-[90vh] overflow-y-auto">
 				{/* Header */}
 				<div className="bg-brand-600 px-6 py-4 flex justify-between items-center sticky top-0 z-10">
 					<h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -158,12 +158,12 @@ const LoginModal: React.FC = () => {
 				<div className="p-6">
 					{mode === 'login' ? (
 						<>
-							<p className="text-gray-600 mb-6 text-center">
+							<p className="text-gray-600 dark:text-gray-300 mb-6 text-center">
 								กรุณาเข้าสู่ระบบเพื่อจัดการข้อมูลการสมัครวิ่งของท่าน
 							</p>
 
 							{loginError && (
-								<div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm flex items-start gap-2">
+								<div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-md text-sm flex items-start gap-2">
 									<AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
 									{loginError}
 								</div>
@@ -192,17 +192,10 @@ const LoginModal: React.FC = () => {
 									required
 								/>
 
-								<div className="flex items-center justify-between text-sm">
-									<label className="flex items-center text-gray-600">
-										<input
-											type="checkbox"
-											className="mr-2 rounded text-brand-600 focus:ring-brand-500 bg-white border-gray-300"
-										/>
-										จดจำฉันไว้
-									</label>
+								<div className="flex items-center justify-end text-sm">
 									<a
 										href="#"
-										className="text-brand-600 hover:text-brand-700 font-medium"
+										className="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium"
 									>
 										ลืมรหัสผ่าน?
 									</a>
@@ -222,11 +215,11 @@ const LoginModal: React.FC = () => {
 								</Button>
 							</form>
 
-							<div className="mt-6 text-center text-sm text-gray-500">
+							<div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
 								ยังไม่มีบัญชี?{' '}
 								<button
 									onClick={() => setMode('register')}
-									className="text-brand-600 font-medium hover:underline"
+									className="text-brand-600 dark:text-brand-400 font-medium hover:underline"
 								>
 									สมัครสมาชิก
 								</button>
@@ -234,7 +227,7 @@ const LoginModal: React.FC = () => {
 						</>
 					) : (
 						<>
-							<p className="text-gray-600 mb-6 text-center">
+							<p className="text-gray-600 dark:text-gray-300 mb-6 text-center">
 								กรอกข้อมูลด้านล่างเพื่อสร้างบัญชีผู้ใช้งานใหม่
 							</p>
 
@@ -338,11 +331,11 @@ const LoginModal: React.FC = () => {
 								</Button>
 							</form>
 
-							<div className="mt-6 text-center text-sm text-gray-500">
+							<div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
 								มีบัญชีอยู่แล้ว?{' '}
 								<button
 									onClick={() => setMode('login')}
-									className="text-brand-600 font-medium hover:underline"
+									className="text-brand-600 dark:text-brand-400 font-medium hover:underline"
 								>
 									เข้าสู่ระบบ
 								</button>
