@@ -106,11 +106,11 @@ const Profile: React.FC = () => {
 
 	return (
 		<div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-			<div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
+			<div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
 				{/* Header Cover */}
 				<div className="bg-gradient-to-r from-brand-600 to-brand-500 h-32 md:h-48 relative">
 					<div className="absolute -bottom-16 left-8 md:left-12">
-						<div className="h-32 w-32 md:h-40 md:w-40 rounded-full border-4 border-white bg-white overflow-hidden shadow-lg relative group cursor-pointer">
+						<div className="h-32 w-32 md:h-40 md:w-40 rounded-full border-4 border-white dark:border-gray-800 bg-white dark:bg-gray-800 overflow-hidden shadow-lg relative group cursor-pointer">
 							<img
 								src={user.profileImage}
 								alt={user.name}
@@ -136,17 +136,17 @@ const Profile: React.FC = () => {
 
 				{/* Profile Content */}
 				<div className="pt-20 px-8 pb-12">
-					<div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 border-b border-gray-100 pb-6">
+					<div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 border-b border-gray-100 dark:border-gray-700 pb-6">
 						<div className="mt-2">
-							<h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+							<h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
 								{user.name}
 								{user.username && (
-									<span className="text-sm font-normal text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+									<span className="text-sm font-normal text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
 										@{user.username}
 									</span>
 								)}
 							</h1>
-							<p className="text-gray-500 mt-1">
+							<p className="text-gray-500 dark:text-gray-400 mt-1">
 								สมาชิกสหกรณ์ออมทรัพย์ครูพิษณุโลก
 							</p>
 						</div>
@@ -164,7 +164,7 @@ const Profile: React.FC = () => {
 								<Button
 									onClick={handleCancel}
 									variant="ghost"
-									className="flex items-center gap-2 text-red-500 hover:bg-red-50 hover:text-red-600"
+									className="flex items-center gap-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400"
 									disabled={isLoading}
 								>
 									<X className="w-4 h-4" /> ยกเลิก
@@ -187,8 +187,8 @@ const Profile: React.FC = () => {
 
 					{/* Personal Info Form/Display */}
 					<div className="animate-fade-in relative">
-						<h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-							<UserCheck className="w-6 h-6 text-brand-600" />{' '}
+						<h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
+							<UserCheck className="w-6 h-6 text-brand-600 dark:text-brand-400" />{' '}
 							ข้อมูลส่วนตัว
 						</h2>
 
@@ -211,11 +211,11 @@ const Profile: React.FC = () => {
 								</>
 							) : (
 								<div className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-									<div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
-										<div className="text-sm text-gray-500 mb-1">
+									<div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600">
+										<div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
 											ชื่อ-นามสกุล
 										</div>
-										<div className="font-semibold text-gray-800 text-lg">
+										<div className="font-semibold text-gray-800 dark:text-white text-lg">
 											{user.firstName} {user.lastName}
 										</div>
 									</div>
@@ -242,28 +242,28 @@ const Profile: React.FC = () => {
 								</>
 							) : (
 								<>
-									<div className="p-4 bg-gray-50 rounded-lg border border-gray-100 flex items-start gap-3">
-										<div className="bg-white p-2 rounded-full shadow-sm text-brand-500">
+									<div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600 flex items-start gap-3">
+										<div className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-sm text-brand-500 dark:text-brand-400">
 											<Phone className="w-5 h-5" />
 										</div>
 										<div>
-											<div className="text-sm text-gray-500 mb-1">
+											<div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
 												เบอร์โทรศัพท์
 											</div>
-											<div className="font-medium text-gray-800">
+											<div className="font-medium text-gray-800 dark:text-white">
 												{user.phone}
 											</div>
 										</div>
 									</div>
-									<div className="p-4 bg-gray-50 rounded-lg border border-gray-100 flex items-start gap-3">
-										<div className="bg-white p-2 rounded-full shadow-sm text-brand-500">
+									<div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600 flex items-start gap-3">
+										<div className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-sm text-brand-500 dark:text-brand-400">
 											<Mail className="w-5 h-5" />
 										</div>
 										<div>
-											<div className="text-sm text-gray-500 mb-1">
+											<div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
 												อีเมล
 											</div>
-											<div className="font-medium text-gray-800">
+											<div className="font-medium text-gray-800 dark:text-white">
 												{user.email}
 											</div>
 										</div>
@@ -294,15 +294,15 @@ const Profile: React.FC = () => {
 								</>
 							) : (
 								<>
-									<div className="p-4 bg-gray-50 rounded-lg border border-gray-100 flex items-start gap-3">
-										<div className="bg-white p-2 rounded-full shadow-sm text-brand-500">
+									<div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600 flex items-start gap-3">
+										<div className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-sm text-brand-500 dark:text-brand-400">
 											<Calendar className="w-5 h-5" />
 										</div>
 										<div>
-											<div className="text-sm text-gray-500 mb-1">
+											<div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
 												วันเกิด (อายุ)
 											</div>
-											<div className="font-medium text-gray-800">
+											<div className="font-medium text-gray-800 dark:text-white">
 												{user.birthDate
 													? new Date(
 															user.birthDate
@@ -315,21 +315,21 @@ const Profile: React.FC = () => {
 															}
 														)
 													: '-'}
-												<span className="text-gray-500 font-normal ml-2">
+												<span className="text-gray-500 dark:text-gray-400 font-normal ml-2">
 													({age} ปี)
 												</span>
 											</div>
 										</div>
 									</div>
-									<div className="p-4 bg-gray-50 rounded-lg border border-gray-100 flex items-start gap-3">
-										<div className="bg-white p-2 rounded-full shadow-sm text-brand-500">
+									<div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600 flex items-start gap-3">
+										<div className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-sm text-brand-500 dark:text-brand-400">
 											<UserIcon className="w-5 h-5" />
 										</div>
 										<div>
-											<div className="text-sm text-gray-500 mb-1">
+											<div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
 												เพศ
 											</div>
-											<div className="font-medium text-gray-800">
+											<div className="font-medium text-gray-800 dark:text-white">
 												{user.gender === 'male'
 													? 'ชาย'
 													: user.gender === 'female'
@@ -344,18 +344,18 @@ const Profile: React.FC = () => {
 
 						{/* Delete Account Section */}
 						{isEditing && (
-							<div className="mt-12 pt-8 border-t border-red-100">
-								<h3 className="text-red-700 font-bold mb-2">
+							<div className="mt-12 pt-8 border-t border-red-100 dark:border-red-900/30">
+								<h3 className="text-red-700 dark:text-red-400 font-bold mb-2">
 									พื้นที่อันตราย
 								</h3>
-								<p className="text-gray-500 text-sm mb-4">
+								<p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
 									การลบบัญชีจะทำให้ข้อมูลการสมัครและประวัติทั้งหมดหายไป
 									ไม่สามารถกู้คืนได้
 								</p>
 								<Button
 									variant="ghost"
 									onClick={handleDeleteAccount}
-									className="text-red-600 hover:bg-red-50 border border-red-200 flex items-center gap-2"
+									className="text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 border border-red-200 dark:border-red-900/30 flex items-center gap-2"
 								>
 									<Trash2 className="w-4 h-4" /> ลบบัญชีผู้ใช้
 								</Button>

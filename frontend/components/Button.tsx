@@ -13,17 +13,17 @@ const Button: React.FC<ButtonProps> = ({
 	...props
 }) => {
 	const baseStyles =
-		'px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+		'px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed';
 
 	const variants = {
 		primary:
-			'bg-brand-600 text-white hover:bg-brand-700 focus:ring-brand-500',
+			'bg-brand-600 text-white hover:bg-brand-700 focus:ring-brand-500 dark:bg-brand-600 dark:hover:bg-brand-700',
 		secondary:
-			'bg-brand-100 text-brand-800 hover:bg-brand-200 focus:ring-brand-500',
+			'bg-brand-100 text-brand-800 hover:bg-brand-200 focus:ring-brand-500 dark:bg-brand-900/50 dark:text-brand-200 dark:hover:bg-brand-900',
 		outline:
-			'border-2 border-brand-600 text-brand-600 hover:bg-brand-50 focus:ring-brand-500',
-		ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-400',
-		danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+			'border-2 border-brand-600 text-brand-600 hover:bg-brand-50 focus:ring-brand-500 dark:border-brand-500 dark:text-brand-400 dark:hover:bg-brand-900/30',
+		ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-400 dark:text-gray-300 dark:hover:bg-gray-800',
+		danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 dark:bg-red-600 dark:hover:bg-red-700',
 	};
 
 	const widthClass = fullWidth ? 'w-full' : '';
