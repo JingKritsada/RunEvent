@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RunnerData } from '../types/index';
+import { RegisterFormData } from '../types/index';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Select from '../components/Select';
@@ -14,6 +14,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { calculateAge } from '../utils/validation';
+import { getRunTypes, getShirtData } from '../services/dataService';
 
 const Register: React.FC = () => {
 	const { user, registerForRun } = useAuth();
@@ -21,7 +22,7 @@ const Register: React.FC = () => {
 
 	const [step, setStep] = useState(1);
 	const [agreed, setAgreed] = useState(false);
-	const [formData, setFormData] = useState<RunnerData>({
+	const [formData, setFormData] = useState<RegisterFormData>({
 		firstName: '',
 		lastName: '',
 		age: '',
@@ -32,6 +33,25 @@ const Register: React.FC = () => {
 		shirtSize: '',
 		paymentProof: '',
 	});
+
+	const [runTypes, setRunTypes] = useState<any[]>([]);
+	const [shirtSizes, setShirtSizes] = useState<any[]>([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const types = await getRunTypes();
+				setRunTypes(types);
+				const shirts = await getShirtData();
+				if (shirts && shirts.sizes) {
+					setShirtSizes(shirts.sizes);
+				}
+			} catch (error) {
+				console.error('Failed to fetch dropdown data', error);
+			}
+		};
+		fetchData();
+	}, []);
 
 	// Redirect if not logged in
 	useEffect(() => {
@@ -83,13 +103,18 @@ const Register: React.FC = () => {
 	const nextStep = () => setStep((prev) => prev + 1);
 	const prevStep = () => setStep((prev) => prev - 1);
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (step === 4 && agreed && formData.paymentProof) {
-			// Register logic
-			registerForRun(formData);
-			alert('ลงทะเบียนและส่งหลักฐานการชำระเงินเรียบร้อยแล้ว!');
-			navigate('/run-status');
+			try {
+				// Register logic
+				await registerForRun(formData);
+				alert('ลงทะเบียนและส่งหลักฐานการชำระเงินเรียบร้อยแล้ว!');
+				navigate('/run-status');
+			} catch (error) {
+				console.error('Registration failed:', error);
+				alert('เกิดข้อผิดพลาดในการลงทะเบียน กรุณาลองใหม่อีกครั้ง');
+			}
 		}
 	};
 
@@ -106,16 +131,11 @@ const Register: React.FC = () => {
 	};
 
 	const getPrice = () => {
-		switch (formData.category) {
-			case 'funrun':
-				return '450';
-			case 'mini':
-				return '550';
-			case 'half':
-				return '750';
-			default:
-				return '0';
+		const selected = runTypes.find((t) => t.title === formData.category);
+		if (selected) {
+			return selected.price.replace(/\D/g, '');
 		}
+		return '0';
 	};
 
 	const renderStepIndicator = () => (
@@ -171,8 +191,7 @@ const Register: React.FC = () => {
 									value={formData.firstName}
 									onChange={handleInputChange}
 									required
-									readOnly
-									className="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+									disabled
 								/>
 								<Input
 									label="นามสกุล"
@@ -180,8 +199,7 @@ const Register: React.FC = () => {
 									value={formData.lastName}
 									onChange={handleInputChange}
 									required
-									readOnly
-									className="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+									disabled
 								/>
 								<Input
 									label="อายุ (คำนวณจากวันเกิด)"
@@ -190,8 +208,7 @@ const Register: React.FC = () => {
 									value={formData.age}
 									onChange={handleInputChange}
 									required
-									readOnly
-									className="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+									disabled
 								/>
 								<Select
 									label="เพศ"
@@ -199,8 +216,7 @@ const Register: React.FC = () => {
 									value={formData.gender}
 									onChange={handleInputChange}
 									required
-									disabled // Disable because it's pulled from profile
-									className="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+									disabled
 								>
 									<option value="">เลือกเพศ</option>
 									<option value="male">ชาย</option>
@@ -213,6 +229,7 @@ const Register: React.FC = () => {
 									value={formData.phone}
 									onChange={handleInputChange}
 									required
+									disabled
 								/>
 								<Input
 									label="อีเมล"
@@ -221,6 +238,7 @@ const Register: React.FC = () => {
 									value={formData.email}
 									onChange={handleInputChange}
 									required
+									disabled
 								/>
 							</div>
 
@@ -236,15 +254,12 @@ const Register: React.FC = () => {
 									required
 								>
 									<option value="">เลือกประเภท</option>
-									<option value="funrun">
-										Fun Run (5 KM) - 450 บาท
-									</option>
-									<option value="mini">
-										Mini Marathon (10.5 KM) - 550 บาท
-									</option>
-									<option value="half">
-										Half Marathon (21.1 KM) - 750 บาท
-									</option>
+									{runTypes.map((type, index) => (
+										<option key={index} value={type.title}>
+											{type.title} ({type.dist}) -{' '}
+											{type.price}
+										</option>
+									))}
 								</Select>
 
 								<Select
@@ -255,12 +270,11 @@ const Register: React.FC = () => {
 									required
 								>
 									<option value="">เลือกขนาด</option>
-									<option value="XS">XS (34&quot;)</option>
-									<option value="S">S (36&quot;)</option>
-									<option value="M">M (38&quot;)</option>
-									<option value="L">L (40&quot;)</option>
-									<option value="XL">XL (42&quot;)</option>
-									<option value="XXL">XXL (44&quot;)</option>
+									{shirtSizes.map((size, index) => (
+										<option key={index} value={size.size}>
+											{size.size} ({size.chest}&quot;)
+										</option>
+									))}
 								</Select>
 							</div>
 
@@ -386,23 +400,19 @@ const Register: React.FC = () => {
 								</p>
 							</div>
 
-							<div className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-800 dark:text-blue-200">
+							<label className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-800 dark:text-blue-200 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
 								<input
 									type="checkbox"
-									id="agree"
 									checked={agreed}
 									onChange={(e) =>
 										setAgreed(e.target.checked)
 									}
 									className="w-5 h-5 text-brand-600 rounded focus:ring-brand-500 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
 								/>
-								<label
-									htmlFor="agree"
-									className="text-sm font-medium cursor-pointer select-none"
-								>
+								<span className="text-sm font-medium select-none">
 									ข้าพเจ้ายอมรับเงื่อนไขและข้อตกลงในการสมัครวิ่ง
-								</label>
-							</div>
+								</span>
+							</label>
 
 							<div className="flex justify-between pt-6">
 								<Button

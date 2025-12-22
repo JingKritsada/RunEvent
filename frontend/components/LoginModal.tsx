@@ -135,9 +135,9 @@ const LoginModal: React.FC = () => {
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4">
-			<div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up max-h-[90vh] overflow-y-auto">
+			<div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up max-h-[85dvh] overflow-y-auto">
 				{/* Header */}
-				<div className="bg-brand-600 px-6 py-4 flex justify-between items-center sticky top-0 z-10">
+				<div className="bg-brand-600 px-4 md:px-6 py-3 md:py-4 flex justify-between items-center sticky top-0 z-10">
 					<h2 className="text-xl font-bold text-white flex items-center gap-2">
 						{mode === 'login' ? (
 							<User className="w-6 h-6" />
@@ -155,7 +155,7 @@ const LoginModal: React.FC = () => {
 				</div>
 
 				{/* Body */}
-				<div className="p-6">
+				<div className="p-4 md:p-6">
 					{mode === 'login' ? (
 						<>
 							<p className="text-gray-600 dark:text-gray-300 mb-6 text-center">
@@ -233,9 +233,9 @@ const LoginModal: React.FC = () => {
 
 							<form
 								onSubmit={handleRegisterSubmit}
-								className="space-y-4"
+								className="space-y-3 md:space-y-4"
 							>
-								<div className="grid grid-cols-2 gap-4">
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
 									<Input
 										label="ชื่อ"
 										value={regFirstName}
@@ -256,7 +256,7 @@ const LoginModal: React.FC = () => {
 									/>
 								</div>
 
-								<div className="grid grid-cols-2 gap-4">
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
 									<Input
 										label="วันเกิด"
 										type="date"

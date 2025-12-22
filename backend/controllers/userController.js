@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const { RunStatus } = require('../config/constants');
 
 const generateToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -127,8 +128,113 @@ const getUserProfile = async (req, res) => {
 	}
 };
 
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+const updateUserProfile = async (req, res) => {
+	const user = await User.findById(req.user._id);
+
+	if (user) {
+		user.firstName = req.body.firstName || user.firstName;
+		user.lastName = req.body.lastName || user.lastName;
+		user.email = req.body.email || user.email;
+		user.phone = req.body.phone || user.phone;
+		user.birthDate = req.body.birthDate || user.birthDate;
+		user.gender = req.body.gender || user.gender;
+		user.profileImage = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&background=random`;
+
+		if (req.body.password) {
+			const salt = await bcrypt.genSalt(10);
+			user.password = await bcrypt.hash(req.body.password, salt);
+		}
+
+		const updatedUser = await user.save();
+
+		res.json({
+			id: updatedUser._id,
+			firstName: updatedUser.firstName,
+			lastName: updatedUser.lastName,
+			name: updatedUser.name,
+			email: updatedUser.email,
+			phone: updatedUser.phone,
+			birthDate: updatedUser.birthDate,
+			gender: updatedUser.gender,
+			profileImage: updatedUser.profileImage,
+			hasRegisteredRun: updatedUser.hasRegisteredRun,
+			runDetails: updatedUser.runDetails,
+		});
+	} else {
+		res.status(404).json({ message: 'User not found' });
+	}
+};
+
+// @desc    Delete user account
+// @route   DELETE /api/users/profile
+// @access  Private
+const deleteUserAccount = async (req, res) => {
+	const user = await User.findById(req.user._id);
+
+	if (user) {
+		await user.deleteOne();
+		res.json({ message: 'User removed' });
+	} else {
+		res.status(404).json({ message: 'User not found' });
+	}
+};
+
+// @desc    Register for run
+// @route   POST /api/users/register-run
+// @access  Private
+const registerRun = async (req, res) => {
+	const user = await User.findById(req.user._id);
+
+	if (user) {
+		if (user.hasRegisteredRun) {
+			return res
+				.status(400)
+				.json({ message: 'User already registered for run' });
+		}
+
+		const { category, shirtSize, paymentProof } = req.body;
+
+		// Generate BIB number (0001 - 9999)
+		const count = await User.countDocuments({ hasRegisteredRun: true });
+		const bib = String(count + 1).padStart(4, '0');
+
+		user.runDetails = {
+			category,
+			shirtSize,
+			paymentProof,
+			bib,
+			status: RunStatus.PENDING,
+		};
+		user.hasRegisteredRun = true;
+
+		const updatedUser = await user.save();
+
+		res.json({
+			id: updatedUser._id,
+			firstName: updatedUser.firstName,
+			lastName: updatedUser.lastName,
+			name: updatedUser.name,
+			email: updatedUser.email,
+			phone: updatedUser.phone,
+			birthDate: updatedUser.birthDate,
+			gender: updatedUser.gender,
+			profileImage: updatedUser.profileImage,
+			hasRegisteredRun: updatedUser.hasRegisteredRun,
+			runDetails: updatedUser.runDetails,
+		});
+	} else {
+		res.status(404).json({ message: 'User not found' });
+	}
+};
+
 module.exports = {
 	registerUser,
 	loginUser,
 	getUserProfile,
+	registerRun,
+	updateUserProfile,
+	deleteUserAccount,
 };

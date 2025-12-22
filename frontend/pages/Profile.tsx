@@ -10,7 +10,6 @@ import {
 	Edit2,
 	Save,
 	X,
-	Camera,
 	Calendar,
 	Phone,
 	Mail,
@@ -116,10 +115,10 @@ const Profile: React.FC = () => {
 								alt={user.name}
 								className="w-full h-full object-cover"
 							/>
-							{/* Simulated Image Upload Overlay */}
-							<div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+							{/* TODO: Simulated Image Upload Overlay */}
+							{/* <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
 								<Camera className="w-8 h-8 text-white" />
-							</div>
+							</div> */}
 						</div>
 					</div>
 
@@ -210,14 +209,12 @@ const Profile: React.FC = () => {
 									/>
 								</>
 							) : (
-								<div className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-									<div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600">
-										<div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-											ชื่อ-นามสกุล
-										</div>
-										<div className="font-semibold text-gray-800 dark:text-white text-lg">
-											{user.firstName} {user.lastName}
-										</div>
+								<div className="col-span-1 md:col-span-2 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600">
+									<div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+										ชื่อ-นามสกุล
+									</div>
+									<div className="font-semibold text-gray-800 dark:text-white text-lg">
+										{user.firstName} {user.lastName}
 									</div>
 								</div>
 							)}

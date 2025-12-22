@@ -5,7 +5,7 @@ import React, {
 	ReactNode,
 	useEffect,
 } from 'react';
-import { User, RunnerData } from '../types/index';
+import { User, RegisterFormData } from '../types/index';
 import * as UserService from '../services/userService';
 
 interface RegisterData {
@@ -23,7 +23,7 @@ interface AuthContextType {
 	token: string | null;
 	login: (email: string, password?: string) => Promise<boolean>;
 	register: (data: RegisterData) => Promise<void>;
-	registerForRun: (data: RunnerData) => Promise<void>;
+	registerForRun: (data: RegisterFormData) => Promise<void>;
 	updateProfile: (data: Partial<User>) => Promise<void>;
 	deleteAccount: () => Promise<void>;
 	logout: () => void;
@@ -125,7 +125,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 		}
 	};
 
-	const registerForRun = async (data: RunnerData) => {
+	const registerForRun = async (data: RegisterFormData) => {
 		if (user) {
 			setIsLoading(true);
 			try {

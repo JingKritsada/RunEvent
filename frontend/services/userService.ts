@@ -1,5 +1,5 @@
 import { fetchApi } from './api';
-import { User, RunnerData } from '../types/index';
+import { User, RegisterFormData } from '../types/index';
 
 export const login = async (
 	email: string,
@@ -37,7 +37,6 @@ export const updateProfile = async (
 };
 
 export const deleteUser = async (_id: string): Promise<boolean> => {
-	// Assuming backend supports delete on the profile endpoint
 	await fetchApi('/users/profile', {
 		method: 'DELETE',
 	});
@@ -45,16 +44,11 @@ export const deleteUser = async (_id: string): Promise<boolean> => {
 };
 
 export const registerForRun = async (
-	userId: string,
-	data: RunnerData
+	_id: string,
+	data: RegisterFormData
 ): Promise<User> => {
-	// Assuming backend handles run registration via profile update or specific endpoint
-	// Using PUT profile based on likely backend structure updates
-	return fetchApi('/users/profile', {
-		method: 'PUT',
-		body: JSON.stringify({
-			runDetails: { ...data, status: 'pending' },
-			hasRegisteredRun: true,
-		}),
+	return fetchApi('/users/register-run', {
+		method: 'POST',
+		body: JSON.stringify(data),
 	});
 };

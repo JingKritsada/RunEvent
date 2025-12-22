@@ -18,7 +18,7 @@ const MOCK_RUN_TYPES = [
 	{
 		title: 'Fun Run',
 		dist: '5 KM',
-		price: '450 บาท',
+		price: '500 บาท',
 		color: 'bg-blue-500',
 		benefits: [
 			'เสื้อที่ระลึก 1 ตัว',
@@ -29,7 +29,7 @@ const MOCK_RUN_TYPES = [
 	{
 		title: 'Mini Marathon',
 		dist: '10.5 KM',
-		price: '550 บาท',
+		price: '600 บาท',
 		color: 'bg-green-500',
 		benefits: [
 			'เสื้อที่ระลึก 1 ตัว',
@@ -41,7 +41,7 @@ const MOCK_RUN_TYPES = [
 	{
 		title: 'Half Marathon',
 		dist: '21.1 KM',
-		price: '750 บาท',
+		price: '800 บาท',
 		color: 'bg-purple-500',
 		benefits: [
 			'เสื้อที่ระลึก 1 ตัว',
@@ -49,6 +49,18 @@ const MOCK_RUN_TYPES = [
 			'อาหารและเครื่องดื่ม',
 			'ชิพจับเวลา',
 			'Finisher Shirt',
+		],
+	},
+	{
+		title: 'VIP Run',
+		dist: '5 KM',
+		price: '1000 บาท',
+		color: 'bg-yellow-500',
+		benefits: [
+			'เสื้อที่ระลึก 1 ตัว',
+			'เหรียญรางวัลเมื่อเข้าเส้นชัย',
+			'อาหารและเครื่องดื่ม',
+			'ของที่ระลึกพิเศษ',
 		],
 	},
 ];
@@ -75,6 +87,7 @@ const MOCK_SHIRT_DATA = {
 		{ size: 'XL', chest: 42, len: 29 },
 		{ size: '2XL', chest: 44, len: 30 },
 		{ size: '3XL', chest: 46, len: 31 },
+		{ size: '4XL', chest: 48, len: 32 },
 	],
 	images: {
 		front: 'https://picsum.photos/400/400?random=1',
@@ -162,21 +175,9 @@ const MOCK_USERS = [
 		phone: '0812345678',
 		birthDate: '1990-01-01',
 		gender: 'male',
-		hasRegisteredRun: true,
+		hasRegisteredRun: false,
 		profileImage:
 			'https://ui-avatars.com/api/?name=สมชาย+ใจดี&background=random',
-		runDetails: {
-			firstName: 'สมชาย',
-			lastName: 'ใจดี',
-			age: '34',
-			gender: 'male',
-			phone: '0812345678',
-			email: 'user01@example.com',
-			category: 'mini',
-			shirtSize: 'L',
-			status: 'approved',
-			bib: '1024',
-		},
 	},
 	{
 		username: 'user02',
@@ -187,9 +188,9 @@ const MOCK_USERS = [
 		phone: '0898765432',
 		birthDate: '1995-05-15',
 		gender: 'female',
+		hasRegisteredRun: false,
 		profileImage:
 			'https://ui-avatars.com/api/?name=สมหญิง+รักวิ่ง&background=random',
-		hasRegisteredRun: false,
 	},
 ];
 

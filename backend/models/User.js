@@ -1,29 +1,23 @@
 const mongoose = require('mongoose');
+const { RunStatus, Gender } = require('../config/constants');
 
 const runnerDataSchema = new mongoose.Schema(
 	{
-		firstName: { type: String, required: true },
-		lastName: { type: String, required: true },
-		age: { type: String, required: true },
-		gender: { type: String, enum: ['male', 'female', ''], required: true },
-		phone: { type: String, required: true },
-		email: { type: String, required: true },
 		category: {
 			type: String,
-			enum: ['funrun', 'mini', 'half', ''],
 			required: true,
 		},
 		shirtSize: {
 			type: String,
-			enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', '3XL', ''],
 			required: true,
 		},
 		status: {
 			type: String,
-			enum: ['pending', 'paid', 'approved', 'rejected'],
-			default: 'pending',
+			enum: Object.values(RunStatus),
+			default: RunStatus.PENDING,
 		},
 		bib: { type: String },
+		paymentProof: { type: String },
 	},
 	{ _id: false }
 );
@@ -37,7 +31,7 @@ const userSchema = new mongoose.Schema(
 		email: { type: String, required: true, unique: true },
 		phone: { type: String },
 		birthDate: { type: String },
-		gender: { type: String, enum: ['male', 'female', ''] },
+		gender: { type: String, enum: [...Object.values(Gender), ''] },
 		profileImage: { type: String },
 		hasRegisteredRun: { type: Boolean, default: false },
 		runDetails: runnerDataSchema,

@@ -11,6 +11,7 @@ import {
 	Printer,
 } from 'lucide-react';
 import Button from '../components/Button';
+import { calculateAge } from '../utils/validation';
 
 const RunStatus: React.FC = () => {
 	const { user } = useAuth();
@@ -27,6 +28,7 @@ const RunStatus: React.FC = () => {
 	if (!user || !user.runDetails) return null;
 
 	const { runDetails } = user;
+	const age = user.birthDate ? calculateAge(user.birthDate) : '-';
 
 	const getStatusColor = (status: string) => {
 		switch (status) {
@@ -155,8 +157,7 @@ const RunStatus: React.FC = () => {
 										ชื่อ-นามสกุล
 									</span>
 									<div className="font-medium text-gray-900 dark:text-white">
-										{runDetails.firstName}{' '}
-										{runDetails.lastName}
+										{user.firstName} {user.lastName}
 									</div>
 								</div>
 								<div>
@@ -164,8 +165,8 @@ const RunStatus: React.FC = () => {
 										อายุ / เพศ
 									</span>
 									<div className="font-medium text-gray-900 dark:text-white">
-										{runDetails.age} ปี /{' '}
-										{runDetails.gender === 'male'
+										{age} ปี /{' '}
+										{user.gender === 'male'
 											? 'ชาย'
 											: 'หญิง'}
 									</div>
@@ -176,7 +177,7 @@ const RunStatus: React.FC = () => {
 										เบอร์โทรศัพท์
 									</span>
 									<div className="font-medium text-gray-900 dark:text-white">
-										{runDetails.phone}
+										{user.phone}
 									</div>
 								</div>
 								<div>
@@ -184,7 +185,7 @@ const RunStatus: React.FC = () => {
 										<Mail className="w-3 h-3" /> อีเมล
 									</span>
 									<div className="font-medium text-gray-900 dark:text-white">
-										{runDetails.email}
+										{user.email}
 									</div>
 								</div>
 							</div>

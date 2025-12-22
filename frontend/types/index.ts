@@ -10,21 +10,27 @@ export interface User {
 	gender?: 'male' | 'female' | '';
 	profileImage?: string;
 	hasRegisteredRun?: boolean;
-	runDetails?: RunnerData;
+	runDetails?: RunDetails;
 }
 
-export interface RunnerData {
-	firstName: string;
-	lastName: string;
-	age: string;
-	gender: 'male' | 'female' | '';
-	phone: string;
-	email: string;
-	category: 'funrun' | 'mini' | 'half' | '';
-	shirtSize: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | '';
+export interface RunDetails {
+	category: string;
+	shirtSize: string;
 	status?: 'pending' | 'paid' | 'approved' | 'rejected';
 	bib?: string;
 	paymentProof?: string;
+}
+
+export interface RegisterFormData {
+	firstName: string;
+	lastName: string;
+	age: string;
+	gender: string;
+	phone: string;
+	email: string;
+	category: string;
+	shirtSize: string;
+	paymentProof: string;
 }
 
 export enum TabKey {

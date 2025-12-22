@@ -106,6 +106,8 @@ const Home: React.FC = () => {
 	const handleRegisterClick = () => {
 		if (!user) {
 			openLoginModal();
+		} else if (user.hasRegisteredRun) {
+			navigate('/run-status');
 		} else {
 			navigate('/register');
 		}
@@ -557,7 +559,9 @@ const Home: React.FC = () => {
 						variant="secondary"
 						className="px-8 py-3 text-lg font-bold shadow-lg transform hover:scale-105 transition-transform"
 					>
-						สมัครวิ่งทันที
+						{user?.hasRegisteredRun
+							? 'ดูข้อมูลการวิ่ง'
+							: 'สมัครวิ่งทันที'}
 					</Button>
 				</div>
 			</div>
