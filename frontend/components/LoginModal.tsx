@@ -159,7 +159,7 @@ const LoginModal: React.FC = () => {
 					{mode === 'login' ? (
 						<>
 							<p className="text-gray-600 dark:text-gray-300 mb-6 text-center">
-								กรุณาเข้าสู่ระบบเพื่อจัดการข้อมูลการสมัครวิ่งของท่าน
+								กรุณาเข้าสู่ระบบเพื่อจัดการข้อมูลการสมัครวิ่ง
 							</p>
 
 							{loginError && (
@@ -192,19 +192,20 @@ const LoginModal: React.FC = () => {
 									required
 								/>
 
-								<div className="flex items-center justify-end text-sm">
+								{/* TODO: Implement reset password */}
+								{/* <div className="flex items-center justify-end text-sm">
 									<a
 										href="#"
 										className="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium"
 									>
 										ลืมรหัสผ่าน?
 									</a>
-								</div>
+								</div> */}
 
 								<Button
 									type="submit"
 									fullWidth
-									className="mt-4 flex justify-center"
+									className="!mt-8 flex justify-center"
 									disabled={isLoading}
 								>
 									{isLoading ? (
@@ -320,7 +321,7 @@ const LoginModal: React.FC = () => {
 								<Button
 									type="submit"
 									fullWidth
-									className="mt-4 flex justify-center"
+									className="!mt-8 flex justify-center"
 									disabled={isLoading}
 								>
 									{isLoading ? (

@@ -22,7 +22,7 @@ const Select: React.FC<SelectProps> = ({
 			)}
 			<div className="relative">
 				<select
-					className={`w-full px-3 py-2 appearance-none ${
+					className={`w-full px-3 py-2 appearance-none h-[42px] ${
 						props.disabled
 							? 'bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
 							: 'bg-white dark:bg-gray-800 dark:text-white'
