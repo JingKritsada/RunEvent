@@ -17,11 +17,7 @@ import {
 	Loader2,
 	Trash2,
 } from 'lucide-react';
-import {
-	calculateAge,
-	validateEmail,
-	validatePhone,
-} from '../utils/validation';
+import { validateEmail, validatePhone } from '../utils/validation';
 
 const Profile: React.FC = () => {
 	const { user, logout, updateProfile, deleteAccount, isLoading } = useAuth();
@@ -101,7 +97,7 @@ const Profile: React.FC = () => {
 		}
 	};
 
-	const age = formData.birthDate ? calculateAge(formData.birthDate) : '-';
+	const age = user.age || '-';
 
 	return (
 		<div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -139,11 +135,6 @@ const Profile: React.FC = () => {
 						<div className="mt-2">
 							<h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
 								{user.name}
-								{user.username && (
-									<span className="text-sm font-normal text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
-										@{user.username}
-									</span>
-								)}
 							</h1>
 							<p className="text-gray-500 dark:text-gray-400 mt-1">
 								สมาชิกสหกรณ์ออมทรัพย์ครูพิษณุโลก

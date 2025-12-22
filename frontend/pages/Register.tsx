@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { calculateAge } from '../utils/validation';
 import { getRunTypes, getShirtData } from '../services/dataService';
 
 const Register: React.FC = () => {
@@ -73,7 +72,7 @@ const Register: React.FC = () => {
 				email: user.email || '',
 				phone: user.phone || '',
 				gender: user.gender || '',
-				age: user.birthDate ? calculateAge(user.birthDate) : '',
+				age: user.age ? user.age.toString() : '',
 			}));
 		}
 	}, [user, navigate]);

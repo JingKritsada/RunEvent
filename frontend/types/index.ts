@@ -1,12 +1,12 @@
 export interface User {
 	id: string;
-	username?: string; // For login
 	firstName: string;
 	lastName: string;
-	name: string; // Display name (full name)
+	name: string;
 	email: string;
 	phone?: string;
 	birthDate?: string;
+	age?: number;
 	gender?: 'male' | 'female' | '';
 	profileImage?: string;
 	hasRegisteredRun?: boolean;
@@ -16,7 +16,7 @@ export interface User {
 export interface RunDetails {
 	category: string;
 	shirtSize: string;
-	status?: 'pending' | 'paid' | 'approved' | 'rejected';
+	status?: 'pending' | 'approved' | 'rejected';
 	bib?: string;
 	paymentProof?: string;
 }

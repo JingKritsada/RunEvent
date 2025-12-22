@@ -24,15 +24,3 @@ export const sanitizeInput = (input: string): string => {
 export const isNumeric = (val: string): boolean => {
 	return /^\d+$/.test(val);
 };
-
-export const calculateAge = (birthDate: string): string => {
-	if (!birthDate) return '';
-	const today = new Date();
-	const birthDateObj = new Date(birthDate);
-	let age = today.getFullYear() - birthDateObj.getFullYear();
-	const m = today.getMonth() - birthDateObj.getMonth();
-	if (m < 0 || (m === 0 && today.getDate() < birthDateObj.getDate())) {
-		age--;
-	}
-	return age.toString();
-};

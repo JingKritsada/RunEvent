@@ -13,16 +13,8 @@ const generateToken = (id) => {
 // @route   POST /api/users/register
 // @access  Public
 const registerUser = async (req, res) => {
-	const {
-		firstName,
-		lastName,
-		email,
-		phone,
-		birthDate,
-		gender,
-		password,
-		username,
-	} = req.body;
+	const { firstName, lastName, email, phone, birthDate, gender, password } =
+		req.body;
 
 	// Verify email format
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,7 +39,6 @@ const registerUser = async (req, res) => {
 		birthDate,
 		gender,
 		password: hashedPassword,
-		username: username || email, // Fallback to email if username not provided
 		profileImage: `https://ui-avatars.com/api/?name=${firstName}+${lastName}&background=random`,
 	});
 
@@ -61,6 +52,7 @@ const registerUser = async (req, res) => {
 				email: user.email,
 				phone: user.phone,
 				birthDate: user.birthDate,
+				age: user.age,
 				gender: user.gender,
 				profileImage: user.profileImage,
 				hasRegisteredRun: user.hasRegisteredRun,
@@ -91,6 +83,7 @@ const loginUser = async (req, res) => {
 				email: user.email,
 				phone: user.phone,
 				birthDate: user.birthDate,
+				age: user.age,
 				gender: user.gender,
 				profileImage: user.profileImage,
 				hasRegisteredRun: user.hasRegisteredRun,
@@ -118,6 +111,7 @@ const getUserProfile = async (req, res) => {
 			email: user.email,
 			phone: user.phone,
 			birthDate: user.birthDate,
+			age: user.age,
 			gender: user.gender,
 			profileImage: user.profileImage,
 			hasRegisteredRun: user.hasRegisteredRun,
@@ -158,6 +152,7 @@ const updateUserProfile = async (req, res) => {
 			email: updatedUser.email,
 			phone: updatedUser.phone,
 			birthDate: updatedUser.birthDate,
+			age: updatedUser.age,
 			gender: updatedUser.gender,
 			profileImage: updatedUser.profileImage,
 			hasRegisteredRun: updatedUser.hasRegisteredRun,
@@ -220,6 +215,7 @@ const registerRun = async (req, res) => {
 			email: updatedUser.email,
 			phone: updatedUser.phone,
 			birthDate: updatedUser.birthDate,
+			age: updatedUser.age,
 			gender: updatedUser.gender,
 			profileImage: updatedUser.profileImage,
 			hasRegisteredRun: updatedUser.hasRegisteredRun,

@@ -167,11 +167,10 @@ const MOCK_CONTACT = {
 
 const MOCK_USERS = [
 	{
-		username: 'user01',
-		password: '12345678',
 		firstName: 'สมชาย',
 		lastName: 'ใจดี',
 		email: 'user01@example.com',
+		password: '12345678',
 		phone: '0812345678',
 		birthDate: '1990-01-01',
 		gender: 'male',
@@ -180,11 +179,10 @@ const MOCK_USERS = [
 			'https://ui-avatars.com/api/?name=สมชาย+ใจดี&background=random',
 	},
 	{
-		username: 'user02',
-		password: '12345678',
 		firstName: 'สมหญิง',
 		lastName: 'รักวิ่ง',
 		email: 'user02@example.com',
+		password: '12345678',
 		phone: '0898765432',
 		birthDate: '1995-05-15',
 		gender: 'female',

@@ -11,7 +11,6 @@ import {
 	Printer,
 } from 'lucide-react';
 import Button from '../components/Button';
-import { calculateAge } from '../utils/validation';
 
 const RunStatus: React.FC = () => {
 	const { user } = useAuth();
@@ -28,7 +27,7 @@ const RunStatus: React.FC = () => {
 	if (!user || !user.runDetails) return null;
 
 	const { runDetails } = user;
-	const age = user.birthDate ? calculateAge(user.birthDate) : '-';
+	const age = user.age || '-';
 
 	const getStatusColor = (status: string) => {
 		switch (status) {
@@ -36,8 +35,6 @@ const RunStatus: React.FC = () => {
 				return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
 			case 'rejected':
 				return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
-			case 'paid':
-				return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800';
 			default:
 				return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
 		}
@@ -49,8 +46,6 @@ const RunStatus: React.FC = () => {
 				return 'อนุมัติแล้ว / Approved';
 			case 'rejected':
 				return 'ปฏิเสธ / Rejected';
-			case 'paid':
-				return 'ชำระเงินแล้ว / Paid';
 			default:
 				return 'รอตรวจสอบ / Pending Approval';
 		}

@@ -18,7 +18,6 @@ const ShirtSize = {
 
 const RunStatus = {
 	PENDING: 'pending',
-	PAID: 'paid',
 	APPROVED: 'approved',
 	REJECTED: 'rejected',
 };
