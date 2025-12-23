@@ -27,9 +27,15 @@ const Gender = {
 	FEMALE: 'female',
 };
 
+const UserRole = {
+	ADMIN: 'admin',
+	USER: 'user',
+};
+
 module.exports = {
 	RunCategory,
 	ShirtSize,
 	RunStatus,
 	Gender,
+	UserRole,
 };

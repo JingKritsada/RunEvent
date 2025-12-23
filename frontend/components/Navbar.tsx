@@ -20,6 +20,13 @@ const Navbar: React.FC = () => {
 		{ name: 'ข้อมูลการวิ่ง', id: 'run-info' }, // Use ID for custom logic
 	];
 
+	if (user?.role === 'admin') {
+		navItems.push(
+			{ name: 'แดชบอร์ด', path: '/dashboard' },
+			{ name: 'จัดการผู้ใช้', path: '/users' }
+		);
+	}
+
 	const handleLinkClick = (e: React.MouseEvent, item: any) => {
 		e.preventDefault();
 		setIsOpen(false);

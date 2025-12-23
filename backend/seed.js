@@ -167,28 +167,46 @@ const MOCK_CONTACT = {
 
 const MOCK_USERS = [
 	{
-		firstName: 'สมชาย',
-		lastName: 'ใจดี',
-		email: 'user01@example.com',
+		firstName: 'admin',
+		lastName: '1',
+		email: 'admin@example.com',
 		password: '12345678',
 		phone: '0812345678',
 		birthDate: '1990-01-01',
+		age: 34,
 		gender: 'male',
+		role: 'admin',
 		hasRegisteredRun: false,
 		profileImage:
-			'https://ui-avatars.com/api/?name=สมชาย+ใจดี&background=random',
+			'https://ui-avatars.com/api/?name=admin+1&background=random',
 	},
 	{
-		firstName: 'สมหญิง',
-		lastName: 'รักวิ่ง',
-		email: 'user02@example.com',
+		firstName: 'user',
+		lastName: '1',
+		email: 'user@example.com',
 		password: '12345678',
-		phone: '0898765432',
+		phone: '0987654321',
 		birthDate: '1995-05-15',
+		age: 29,
 		gender: 'female',
+		role: 'user',
 		hasRegisteredRun: false,
 		profileImage:
-			'https://ui-avatars.com/api/?name=สมหญิง+รักวิ่ง&background=random',
+			'https://ui-avatars.com/api/?name=user+1&background=random',
+	},
+	{
+		firstName: 'Jing',
+		lastName: 'Jerry',
+		email: 'jing.kritsada@gmail.com',
+		password: '12345678',
+		phone: '0821144010',
+		birthDate: '2006-05-12',
+		age: 18,
+		gender: 'male',
+		role: 'admin',
+		hasRegisteredRun: false,
+		profileImage:
+			'https://ui-avatars.com/api/?name=Jing+Jerry&background=random',
 	},
 ];
 

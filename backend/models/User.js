@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { RunStatus, Gender } = require('../config/constants');
+const { RunStatus, Gender, UserRole } = require('../config/constants');
 
 const runnerDataSchema = new mongoose.Schema(
 	{
@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema(
 		birthDate: { type: String },
 		age: { type: Number },
 		gender: { type: String, enum: [...Object.values(Gender), ''] },
+		role: {
+			type: String,
+			enum: Object.values(UserRole),
+			default: UserRole.USER,
+		},
 		profileImage: { type: String },
 		hasRegisteredRun: { type: Boolean, default: false },
 		runDetails: runnerDataSchema,

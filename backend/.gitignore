@@ -81,3 +81,6 @@ typings/
 
 # macOS
 .DS_Store
+
+# docs
+run-event.postman_collection.json

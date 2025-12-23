@@ -9,6 +9,9 @@ import Profile from './pages/Profile';
 import RunStatus from './pages/RunStatus';
 import NotFound from './pages/NotFound';
 import ErrorTest from './pages/ErrorTest';
+import Dashboard from './pages/Dashboard';
+import UserManagement from './pages/UserManagement';
+import AdminRoute from './components/AdminRoute';
 import ErrorBoundary from './components/ErrorBoundary';
 
 const App: React.FC = () => {
@@ -33,6 +36,19 @@ const App: React.FC = () => {
 									path="/error-test"
 									element={<ErrorTest />}
 								/>
+
+								{/* Admin Routes */}
+								<Route element={<AdminRoute />}>
+									<Route
+										path="/dashboard"
+										element={<Dashboard />}
+									/>
+									<Route
+										path="/users"
+										element={<UserManagement />}
+									/>
+								</Route>
+
 								<Route path="*" element={<NotFound />} />
 							</Routes>
 						</Layout>

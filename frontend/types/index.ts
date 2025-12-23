@@ -8,6 +8,7 @@ export interface User {
 	birthDate?: string;
 	age?: number;
 	gender?: 'male' | 'female' | '';
+	role?: 'admin' | 'user';
 	profileImage?: string;
 	hasRegisteredRun?: boolean;
 	runDetails?: RunDetails;

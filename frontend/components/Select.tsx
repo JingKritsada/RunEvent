@@ -1,9 +1,15 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 
+interface SelectOption {
+	value: string | number;
+	label: string;
+}
+
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 	label?: string;
 	error?: string;
+	options?: SelectOption[];
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -11,6 +17,7 @@ const Select: React.FC<SelectProps> = ({
 	error,
 	className = '',
 	children,
+	options,
 	...props
 }) => {
 	return (
@@ -33,7 +40,13 @@ const Select: React.FC<SelectProps> = ({
 					} pr-10 ${className}`}
 					{...props}
 				>
-					{children}
+					{options
+						? options.map((opt) => (
+								<option key={opt.value} value={opt.value}>
+									{opt.label}
+								</option>
+							))
+						: children}
 				</select>
 				<div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
 					<ChevronDown
