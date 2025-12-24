@@ -5,6 +5,7 @@ import React, {
 	ReactNode,
 	useEffect,
 } from 'react';
+import { useAlert } from './AlertContext';
 import { User, RegisterFormData } from '../types/index';
 import * as UserService from '../services/userService';
 
@@ -38,6 +39,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
+	const { showAlert } = useAlert();
 	const [user, setUser] = useState<User | null>(null);
 	const [token, setToken] = useState<string | null>(
 		localStorage.getItem('token')
@@ -99,7 +101,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 			}
 		} catch (error) {
 			console.error('Registration failed', error);
-			alert('Registration failed: ' + (error as Error).message);
+			showAlert(
+				'Registration failed: ' + (error as Error).message,
+				'error'
+			);
 		} finally {
 			setIsLoading(false);
 		}
@@ -118,7 +123,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 				}
 			} catch (error) {
 				console.error('Update profile failed', error);
-				alert('Failed to update profile');
+				showAlert('Failed to update profile', 'error');
 			} finally {
 				setIsLoading(false);
 			}
@@ -138,7 +143,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 				}
 			} catch (error) {
 				console.error('Register for run failed', error);
-				alert('Failed to register for run');
+				showAlert('Failed to register for run', 'error');
 			} finally {
 				setIsLoading(false);
 			}
@@ -153,7 +158,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 				logout();
 			} catch (error) {
 				console.error('Delete account failed', error);
-				alert('Failed to delete account');
+				showAlert('Failed to delete account', 'error');
 			} finally {
 				setIsLoading(false);
 			}

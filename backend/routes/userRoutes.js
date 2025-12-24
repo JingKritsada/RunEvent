@@ -7,16 +7,9 @@ const {
 	registerRun,
 	updateUserProfile,
 	deleteUserAccount,
-	getUserById,
-	updateUserById,
-	deleteUserById,
-	getUsers,
-	getDashboardStats,
 } = require('../controllers/userController');
-const { protect, admin } = require('../middleware/authMiddleware');
 
-router.route('/').get(protect, admin, getUsers);
-router.route('/stats').get(protect, admin, getDashboardStats);
+const { protect } = require('../middleware/authMiddleware');
 
 router.route('/login').post(loginUser);
 router.route('/register').post(registerUser);
@@ -27,11 +20,5 @@ router
 	.get(protect, getUserProfile)
 	.put(protect, updateUserProfile)
 	.delete(protect, deleteUserAccount);
-
-router
-	.route('/:id')
-	.get(protect, admin, getUserById)
-	.put(protect, admin, updateUserById)
-	.delete(protect, admin, deleteUserById);
 
 module.exports = router;

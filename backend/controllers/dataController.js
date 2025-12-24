@@ -7,7 +7,7 @@ const getData = async (req, res) => {
 		if (eventData) {
 			res.json(eventData.data);
 		} else {
-			res.status(404).json({ message: 'Data not found' });
+			res.status(404).json({ message: 'ไม่พบข้อมูล' });
 		}
 	} catch (error) {
 		res.status(500).json({ message: error.message });

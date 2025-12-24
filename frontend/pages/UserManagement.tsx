@@ -1,13 +1,22 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { getAllUsers, deleteUserById } from '../services/adminService';
+import { useAlert } from '../context/AlertContext';
+import {
+	getAllUsers,
+	deleteUserById,
+	updateUserById,
+} from '../services/adminService';
 import { User } from '../types';
-import { Trash2, ChevronUp, ChevronDown } from 'lucide-react';
+import { Trash2, ChevronUp, ChevronDown, Eye } from 'lucide-react';
 import Input from '../components/Input';
 import Select from '../components/Select';
+import UserDetailsModal from '../components/UserDetailsModal';
 
 const UserManagement: React.FC = () => {
+	const { showAlert, showConfirm } = useAlert();
 	const [users, setUsers] = useState<User[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [selectedUser, setSelectedUser] = useState<User | null>(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [filters, setFilters] = useState({
 		minAge: '',
 		maxAge: '',
@@ -41,14 +50,44 @@ const UserManagement: React.FC = () => {
 	};
 
 	const handleDelete = async (id: string) => {
-		if (confirm('Are you sure you want to delete this user?')) {
-			try {
-				await deleteUserById(id);
-				fetchUsers();
-			} catch (error) {
-				console.error('Failed to delete user', error);
-			}
-		}
+		showConfirm(
+			'Are you sure you want to delete this user?',
+			async () => {
+				try {
+					await deleteUserById(id);
+					fetchUsers();
+				} catch (error) {
+					console.error('Failed to delete user', error);
+				}
+			},
+			'warning',
+			'Delete User'
+		);
+	};
+
+	const handleApproveUser = async (user: User) => {
+		showConfirm(
+			`Are you sure you want to approve registration for ${user.firstName}?`,
+			async () => {
+				try {
+					await updateUserById(user.id, {
+						runDetails: { status: 'approved' },
+					});
+					fetchUsers();
+					setIsModalOpen(false);
+				} catch (error) {
+					console.error('Failed to approve user', error);
+					showAlert('Failed to approve user', 'error');
+				}
+			},
+			'info',
+			'Approve User'
+		);
+	};
+
+	const handleViewUser = (user: User) => {
+		setSelectedUser(user);
+		setIsModalOpen(true);
 	};
 
 	return (
@@ -56,6 +95,13 @@ const UserManagement: React.FC = () => {
 			<h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
 				User Management
 			</h1>
+
+			<UserDetailsModal
+				isOpen={isModalOpen}
+				onClose={() => setIsModalOpen(false)}
+				onApprove={handleApproveUser}
+				user={selectedUser}
+			/>
 
 			{/* Filters */}
 			<div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-6">
@@ -258,14 +304,26 @@ const UserManagement: React.FC = () => {
 											)}
 										</td>
 										<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-											<button
-												onClick={() =>
-													handleDelete(user.id)
-												}
-												className="text-red-600 hover:text-red-900 dark:hover:text-red-400"
-											>
-												<Trash2 size={18} />
-											</button>
+											<div className="flex justify-end space-x-3">
+												<button
+													onClick={() =>
+														handleViewUser(user)
+													}
+													className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+													title="View Details"
+												>
+													<Eye size={18} />
+												</button>
+												<button
+													onClick={() =>
+														handleDelete(user.id)
+													}
+													className="text-red-600 hover:text-red-900 dark:hover:text-red-400"
+													title="Delete User"
+												>
+													<Trash2 size={18} />
+												</button>
+											</div>
 										</td>
 									</tr>
 								))

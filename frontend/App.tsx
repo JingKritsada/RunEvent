@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { AlertProvider } from './context/AlertContext';
 import Layout from './layout/Layout';
 import Home from './pages/Home';
 import Register from './pages/Register';
@@ -16,46 +17,51 @@ import ErrorBoundary from './components/ErrorBoundary';
 
 const App: React.FC = () => {
 	return (
-		<AuthProvider>
-			<ThemeProvider>
-				<Router>
-					<ErrorBoundary>
-						<Layout>
-							<Routes>
-								<Route path="/" element={<Home />} />
-								<Route
-									path="/register"
-									element={<Register />}
-								/>
-								<Route
-									path="/run-status"
-									element={<RunStatus />}
-								/>
-								<Route path="/profile" element={<Profile />} />
-								<Route
-									path="/error-test"
-									element={<ErrorTest />}
-								/>
-
-								{/* Admin Routes */}
-								<Route element={<AdminRoute />}>
+		<AlertProvider>
+			<AuthProvider>
+				<ThemeProvider>
+					<Router>
+						<ErrorBoundary>
+							<Layout>
+								<Routes>
+									<Route path="/" element={<Home />} />
 									<Route
-										path="/dashboard"
-										element={<Dashboard />}
+										path="/register"
+										element={<Register />}
 									/>
 									<Route
-										path="/users"
-										element={<UserManagement />}
+										path="/run-status"
+										element={<RunStatus />}
 									/>
-								</Route>
+									<Route
+										path="/profile"
+										element={<Profile />}
+									/>
+									<Route
+										path="/error-test"
+										element={<ErrorTest />}
+									/>
 
-								<Route path="*" element={<NotFound />} />
-							</Routes>
-						</Layout>
-					</ErrorBoundary>
-				</Router>
-			</ThemeProvider>
-		</AuthProvider>
+									{/* Admin Routes */}
+									<Route element={<AdminRoute />}>
+										<Route
+											path="/dashboard"
+											element={<Dashboard />}
+										/>
+										<Route
+											path="/users"
+											element={<UserManagement />}
+										/>
+									</Route>
+
+									<Route path="*" element={<NotFound />} />
+								</Routes>
+							</Layout>
+						</ErrorBoundary>
+					</Router>
+				</ThemeProvider>
+			</AuthProvider>
+		</AlertProvider>
 	);
 };
 

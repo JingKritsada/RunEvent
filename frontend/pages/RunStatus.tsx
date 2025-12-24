@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useAlert } from '../context/AlertContext';
 import { useNavigate } from 'react-router-dom';
 import {
 	CheckCircle,
@@ -9,11 +10,13 @@ import {
 	Mail,
 	FileText,
 	Printer,
+	Image as ImageIcon,
 } from 'lucide-react';
 import Button from '../components/Button';
 
 const RunStatus: React.FC = () => {
 	const { user } = useAuth();
+	const { showAlert } = useAlert();
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -186,6 +189,29 @@ const RunStatus: React.FC = () => {
 							</div>
 						</div>
 					</div>
+
+					{/* Payment Proof Card */}
+					<div className="bg-white dark:bg-gray-800 shadow rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+						<div className="bg-gray-50 dark:bg-gray-700 px-6 py-4 border-b border-gray-100 dark:border-gray-600">
+							<h2 className="text-gray-800 dark:text-white font-bold text-lg flex items-center gap-2">
+								<ImageIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />{' '}
+								หลักฐานการชำระเงิน (Payment Proof)
+							</h2>
+						</div>
+						<div className="p-6 flex justify-center">
+							{runDetails.paymentProof ? (
+								<img
+									src={runDetails.paymentProof}
+									alt="Payment Proof"
+									className="max-w-full h-auto rounded-lg border border-gray-200 dark:border-gray-600 max-h-96"
+								/>
+							) : (
+								<p className="text-gray-500 dark:text-gray-400">
+									ไม่พบหลักฐานการชำระเงิน
+								</p>
+							)}
+						</div>
+					</div>
 				</div>
 
 				{/* Right Column: Status & Actions */}
@@ -267,7 +293,11 @@ const RunStatus: React.FC = () => {
 								fullWidth
 								variant="outline"
 								onClick={() =>
-									alert('ติดต่อเจ้าหน้าที่: 055-244-666')
+									showAlert(
+										'ติดต่อเจ้าหน้าที่: 055-244-666',
+										'info',
+										'ติดต่อเจ้าหน้าที่'
+									)
 								}
 							>
 								แจ้งปัญหา / แก้ไขข้อมูล

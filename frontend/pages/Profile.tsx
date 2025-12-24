@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useAlert } from '../context/AlertContext';
 import { Navigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -21,6 +22,7 @@ import { validateEmail, validatePhone } from '../utils/validation';
 
 const Profile: React.FC = () => {
 	const { user, logout, updateProfile, deleteAccount, isLoading } = useAuth();
+	const { showAlert, showConfirm } = useAlert();
 	const [isEditing, setIsEditing] = useState(false);
 	const [formData, setFormData] = useState({
 		firstName: '',
@@ -58,10 +60,11 @@ const Profile: React.FC = () => {
 	const handleSave = async () => {
 		// Basic validation
 		if (!formData.firstName || !formData.lastName)
-			return alert('กรุณาระบุชื่อ-นามสกุล');
+			return showAlert('กรุณาระบุชื่อ-นามสกุล', 'warning');
 		if (!validatePhone(formData.phone))
-			return alert('เบอร์โทรศัพท์ไม่ถูกต้อง');
-		if (!validateEmail(formData.email)) return alert('อีเมลไม่ถูกต้อง');
+			return showAlert('เบอร์โทรศัพท์ไม่ถูกต้อง', 'warning');
+		if (!validateEmail(formData.email))
+			return showAlert('อีเมลไม่ถูกต้อง', 'warning');
 
 		await updateProfile({
 			firstName: formData.firstName,
@@ -88,13 +91,14 @@ const Profile: React.FC = () => {
 	};
 
 	const handleDeleteAccount = async () => {
-		if (
-			confirm(
-				'คุณแน่ใจหรือไม่ที่จะลบบัญชีผู้ใช้? การกระทำนี้ไม่สามารถย้อนกลับได้'
-			)
-		) {
-			await deleteAccount();
-		}
+		showConfirm(
+			'คุณแน่ใจหรือไม่ที่จะลบบัญชีผู้ใช้? การกระทำนี้ไม่สามารถย้อนกลับได้',
+			async () => {
+				await deleteAccount();
+			},
+			'error',
+			'ลบบัญชีผู้ใช้'
+		);
 	};
 
 	const age = user.age || '-';

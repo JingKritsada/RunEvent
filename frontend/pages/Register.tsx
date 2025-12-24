@@ -13,10 +13,12 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useAlert } from '../context/AlertContext';
 import { getRunTypes, getShirtData } from '../services/dataService';
 
 const Register: React.FC = () => {
 	const { user, registerForRun } = useAuth();
+	const { showAlert } = useAlert();
 	const navigate = useNavigate();
 
 	const [step, setStep] = useState(1);
@@ -108,11 +110,17 @@ const Register: React.FC = () => {
 			try {
 				// Register logic
 				await registerForRun(formData);
-				alert('ลงทะเบียนและส่งหลักฐานการชำระเงินเรียบร้อยแล้ว!');
+				showAlert(
+					'ลงทะเบียนและส่งหลักฐานการชำระเงินเรียบร้อยแล้ว!',
+					'success'
+				);
 				navigate('/run-status');
 			} catch (error) {
 				console.error('Registration failed:', error);
-				alert('เกิดข้อผิดพลาดในการลงทะเบียน กรุณาลองใหม่อีกครั้ง');
+				showAlert(
+					'เกิดข้อผิดพลาดในการลงทะเบียน กรุณาลองใหม่อีกครั้ง',
+					'error'
+				);
 			}
 		}
 	};

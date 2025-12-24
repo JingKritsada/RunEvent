@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const dataRoutes = require('./routes/dataRoutes');
+const adminRoute = require('./routes/adminRoute');
 
 // Load environment variables
 dotenv.config();
@@ -31,6 +32,7 @@ const connectDB = async () => {
 connectDB();
 
 // Routes
+app.use('/api/admin', adminRoute);
 app.use('/api/users', userRoutes);
 app.use('/api/data', dataRoutes);
 
